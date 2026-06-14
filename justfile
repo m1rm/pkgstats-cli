@@ -8,7 +8,8 @@ export CGO_CXXFLAGS := env('CXXFLAGS', '')
 export CGO_LDFLAGS := env('LDFLAGS', '')
 export CGO_ENABLED := '0'
 
-VERSION := `git describe --tags 2>/dev/null || echo "dev"`
+# Use the environment variable if present, otherwise fall back to git or "dev"
+VERSION := env('VERSION', `git describe --tags 2>/dev/null || echo "dev"`)
 
 # list all recipes
 [private]
