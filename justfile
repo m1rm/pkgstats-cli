@@ -8,6 +8,8 @@ export CGO_CXXFLAGS := env('CXXFLAGS', '')
 export CGO_LDFLAGS := env('LDFLAGS', '')
 export CGO_ENABLED := '0'
 
+VERSION := `git describe --tags 2>/dev/null || echo "dev"`
+
 # list all recipes
 [private]
 default:
@@ -22,8 +24,8 @@ prepare:
 [group('install')]
 build:
     CGO_ENABLED=1 go build -a -o pkgstats \
-       	-buildmode=pie -mod=readonly -modcacherw -buildvcs=false \
-       	-ldflags '-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ `git describe --tags` }}'
+        -buildmode=pie -mod=readonly -modcacherw -buildvcs=false \
+        -ldflags "-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ VERSION }}"
 
 # run unit tests
 [group('test')]
