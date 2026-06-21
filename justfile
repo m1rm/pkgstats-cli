@@ -8,9 +8,6 @@ export CGO_CXXFLAGS := env('CXXFLAGS', '')
 export CGO_LDFLAGS := env('LDFLAGS', '')
 export CGO_ENABLED := '0'
 
-# Use the environment variable if present, otherwise fall back to git or "dev"
-VERSION := env('VERSION', `git describe --tags 2>/dev/null || echo "dev"`)
-
 # list all recipes
 [private]
 default:
@@ -25,8 +22,8 @@ prepare:
 [group('install')]
 build:
     CGO_ENABLED=1 go build -a -o pkgstats \
-        -buildmode=pie -mod=readonly -modcacherw -buildvcs=false \
-        -ldflags "-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ VERSION }}"
+       	-buildmode=pie -mod=readonly -modcacherw -buildvcs=false \
+       	-ldflags "-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ env('VERSION', `git describe --tags`) }}"
 
 # run unit tests
 [group('test')]

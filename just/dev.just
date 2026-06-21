@@ -48,7 +48,7 @@ test-os-detection: aarch64::test-os-detection arm::test-os-detection i686::test-
 # run integration tests with a mocked API server
 [group('test')]
 test-integration:
-    docker buildx build --pull --build-arg VERSION="{{ VERSION }}" . -t pkgstats-test-integration
+    docker buildx build --pull --build-arg VERSION="{{ `git describe --tags 2>/dev/null || echo dev` }}" . -t pkgstats-test-integration
 
 # run all available tests
 [group('test')]

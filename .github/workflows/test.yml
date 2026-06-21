@@ -45,8 +45,6 @@ jobs:
       - name: Run Common Setup
         uses: ./.github/actions/setup
       - run: just test-integration
-        env:
-          VERSION: ${{ github.ref_name }}
 
   test-cross-platform:
     runs-on: ubuntu-latest
