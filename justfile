@@ -23,7 +23,7 @@ prepare:
 build:
     CGO_ENABLED=1 go build -a -o pkgstats \
        	-buildmode=pie -mod=readonly -modcacherw -buildvcs=false \
-       	-ldflags "-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ env('VERSION', `git describe --tags`) }}"
+       	-ldflags '-compressdwarf=false -linkmode=external -s -w -X pkgstats-cli/internal/build.Version={{ `git describe --tags` }}'
 
 # run unit tests
 [group('test')]

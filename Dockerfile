@@ -6,8 +6,6 @@ RUN pacman -Syu --noconfirm --cachedir /tmp/pacman-cache go just git gcc jq
 COPY . /app/
 WORKDIR /app
 ENV INTEGRATION_TEST=1
-ARG VERSION=dev
-ENV VERSION=${VERSION}
 RUN just prepare
 RUN just build
 RUN just test
